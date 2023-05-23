@@ -9,9 +9,34 @@ import SearchBox from './components/SearchBox';
 function App() {
   const [ usersData , setUsersData] = useState();
   const [ usersRenderData, setUsersRenderData] = useState();
-  useEffect(() => {
+  useEffect( () => {
+
+    const getData = async () => {
+
+    const url = "https://api.github.com/users";
+    const token = `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`;
+    const headers = {
+      Authorization: 'Bearer '+ token,
+    };
+
+    const response = await fetch(url, {
+      
+      headers: headers,
+      
+    });
+
+    const responseData = await response.json();
+    return responseData;
+    console.log(responseData);
+      
+    }
+    const githubData =  getData();
+
+   // setUsersData(githubData)
+    
+
     setTimeout(() => {
-      setUsersData(data)
+      setUsersData(githubData)
       setUsersRenderData(usersData);
 
     },500)
