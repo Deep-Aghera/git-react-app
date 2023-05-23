@@ -6,6 +6,7 @@ import ProfileCard from "./ProfileCard";
 export default function ProfileList(props) {
   const usersP = props.users;
 
+  //console.log("from profileList",props)
   return (
     <>
       {usersP.map((item) => {

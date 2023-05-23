@@ -1,42 +1,57 @@
 import React from "react";
 
 export default function CitySelector(props) {
-  
-    const users = props.users;
-    const usersRenderData = props.usersRenderData;
-    var uniqueCities = [...new Set(users.map(profile => profile.city))];
-  
+  const users = props.users;
+  const usersRenderData = props.usersRenderData;
+  var uniqueCities = [
+    "New York",
+    "San Francisco",
+    "London",
+    "Berlin",
+    "Toronto",
+    "Sydney",
+    "Barcelona",
+    "Los Angeles",
+    "Seattle",
+    "Melbourne"
+  ];
 
-    const handleChange= (e) => {
-        const selectedCity = e.target.value;
+  const handleChange = async (e) => {
+    const selectedCity = e.target.value;
 
-       if(selectedCity === "all" ) {
-        props.handleUsersRender(users)
-        return
-       }
-       
-       
-        const filterUser = users.filter((item) => {
-            return item.city === e.target.value
-        })
-        props.handleUsersRender(filterUser)
-     //   console.log(filterUser)
-
+    if (selectedCity === "all") {
+      props.handleUsersRender(users);
+      return;
     }
-     
 
-    return(
+    const url = `https://api.github.com/search/users?q=location:${encodeURIComponent(
+      selectedCity
+    )}`;
+    const token = `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`;
+    const headers = {
+      Authorization: 'Bearer ' + token,
+    };
+
+    const response = await fetch(url, {
+      headers: headers,
+    });
+
+    const responseData = await response.json();
+    const filteredData = responseData.items;
+    console.log("filtered data", filteredData);
+    props.handleUsersRender(filteredData);
+  };
+
+  return (
     <>
       <label htmlFor="cars">Choose a city:</label>
       <select name="city" onChange={handleChange} id="city">
-      <option defaultChecked  value="all">All</option>
-         {uniqueCities.map((item,i) => {
-            return(
-                <option key={i} value={item}>{item}</option>
-            )
-         })} 
-        
-    
+        <option defaultChecked value="all">
+          All
+        </option>
+        {uniqueCities.map((item, i) => {
+          return <option key={i} value={item}>{item}</option>;
+        })}
       </select>
     </>
   );

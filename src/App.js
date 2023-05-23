@@ -9,43 +9,76 @@ import SearchBox from './components/SearchBox';
 function App() {
   const [ usersData , setUsersData] = useState();
   const [ usersRenderData, setUsersRenderData] = useState();
-  useEffect( () => {
+  // useEffect( () => {
 
-    const getData = async () => {
+  //   const getData = async () => {
 
-    const url = "https://api.github.com/users";
-    const token = `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`;
-    const headers = {
-      Authorization: 'Bearer '+ token,
-    };
+  //   const url = "https://api.github.com/users";
+  //   const token = `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`;
+  //   const headers = {
+  //     Authorization: 'Bearer '+ token,
+  //   };
 
-    const response = await fetch(url, {
+  //   const response = await fetch(url, {
       
-      headers: headers,
+  //     headers: headers,
       
-    });
+  //   });
 
-    const responseData = await response.json();
-    return responseData;
-    console.log(responseData);
+  //   const responseData = await response.json();
+  //   console.log("here's data ===>",responseData);
+  //   return responseData;
       
-    }
-    const githubData =  getData();
+  //   }
+  //   const githubData = getData();
 
-   // setUsersData(githubData)
+  //  // setUsersData(githubData)
     
 
-    setTimeout(() => {
-      setUsersData(githubData)
-      setUsersRenderData(usersData);
+   
+  //     setUsersData(githubData)
+  //     setUsersRenderData(usersData);
 
-    },500)
-   // console.log(usersData)
+    
+  //  // console.log(usersData)
 
+  //   return () => {
+  //     console.log("unmount")
+  //   }
+  // },[usersData])
+
+  useEffect(() => {
+    const getData = async () => {
+      const url = "https://api.github.com/users";
+      const token = `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`;
+      const headers = {
+        Authorization: 'Bearer ' + token,
+      };
+  
+      const response = await fetch(url, {
+        headers: headers,
+      });
+  
+      const responseData = await response.json();
+     // console.log("here's data ===>", responseData);
+      return responseData;
+    };
+  
+    const fetchData = async () => {
+      const githubData = await getData();
+      setUsersData(githubData);
+      setUsersRenderData(githubData);
+    };
+    console.log(usersRenderData)
+    fetchData();
+  
     return () => {
-      console.log("unmount")
-    }
-  },[usersData])
+      console.log("forom unmount",usersRenderData)
+      console.log("unmount");
+    };
+  }, []);
+  
+
 
   return (
     <div className="App">
