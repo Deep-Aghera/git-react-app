@@ -41,7 +41,7 @@ export default function SearchBox(props) {
 
                     <label htmlFor="searchIn">user search</label>
                     <input type="text" id="searchIn" onChange={handleSearch}/>
-                    <button type="submit"> Go</button>
+                    <button type="submit" className="submit-btn"> Go</button>
 
                 </form>
 
