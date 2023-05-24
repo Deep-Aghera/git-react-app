@@ -27,7 +27,7 @@ export default function CitySelector(props) {
     const url = `https://api.github.com/search/users?q=location:${encodeURIComponent(
       selectedCity
     )}`;
-    const token = `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`;
+    const token = process.env.REACT_APP_API_KEY;
     const headers = {
       Authorization: 'Bearer ' + token,
     };

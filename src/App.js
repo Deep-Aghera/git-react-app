@@ -50,7 +50,7 @@ function App() {
   useEffect(() => {
     const getData = async () => {
       const url = "https://api.github.com/users";
-      const token = `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`;
+      const token = process.env.REACT_APP_API_KEY;
       const headers = {
         Authorization: 'Bearer ' + token,
       };
