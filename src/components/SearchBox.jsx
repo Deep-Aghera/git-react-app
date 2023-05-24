@@ -1,32 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
 import './SearchBox.css';
-
+import fetchData from "../utils/fetchingDataFunction";
 export default function SearchBox(props) {
 
-   // console.log("props from search ",props)
+    const [searchValue, setSearchValue] = useState();
+   
 
     const handleSearch = (e) => {
-      //  console.log("we search");
-      //  console.log("here change",e.target.value);
+     
         const searchString  = e.target.value;
-        if(searchString === "") {
+        setSearchValue(searchString)
+     
+    }
+
+    const handleSubmit = async(e) => {
+        e.preventDefault();
+
+        if(searchValue === "") {
             props.handleUsersRender(props.users);
-        //    console.log("Ent",props.users)
             return
         }
-        const filterdData = props.usersRenderData.filter((item) => {
-             return item.name.startsWith(searchString)
-        })
-        //console.log(filterdData)
-       props.handleUsersRender(filterdData)
+
+        const token = process.env.REACT_APP_API_KEY;
+        const headers = {
+          Authorization: 'Bearer ' + token,
+        };
+        const url = `https://api.github.com/users/${searchValue}`
+        const data =  await fetchData(url,headers);
+        console.log(data)
+
+       
+     
+       props.handleUsersRender([data])
     }
     return (
         <>
         <div className="search-container">
+         <div className="search">
+                <form onSubmit={handleSubmit}>
 
-            <label htmlFor="searchIn">user search</label>
-            <input type="text" id="searchIn" onChange={handleSearch}/>
+                    <label htmlFor="searchIn">user search</label>
+                    <input type="text" id="searchIn" onChange={handleSearch}/>
+                    <button type="submit"> Go</button>
+
+                </form>
+
+            </div>
+
         </div>
+        
         </>
     )
 }

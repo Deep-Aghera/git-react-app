@@ -9,43 +9,6 @@ import SearchBox from './components/SearchBox';
 function App() {
   const [ usersData , setUsersData] = useState();
   const [ usersRenderData, setUsersRenderData] = useState();
-  // useEffect( () => {
-
-  //   const getData = async () => {
-
-  //   const url = "https://api.github.com/users";
-  //   const token = `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`;
-  //   const headers = {
-  //     Authorization: 'Bearer '+ token,
-  //   };
-
-  //   const response = await fetch(url, {
-      
-  //     headers: headers,
-      
-  //   });
-
-  //   const responseData = await response.json();
-  //   console.log("here's data ===>",responseData);
-  //   return responseData;
-      
-  //   }
-  //   const githubData = getData();
-
-  //  // setUsersData(githubData)
-    
-
-   
-  //     setUsersData(githubData)
-  //     setUsersRenderData(usersData);
-
-    
-  //  // console.log(usersData)
-
-  //   return () => {
-  //     console.log("unmount")
-  //   }
-  // },[usersData])
 
   useEffect(() => {
     const getData = async () => {
