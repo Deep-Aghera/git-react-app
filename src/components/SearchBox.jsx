@@ -7,15 +7,16 @@ export default function SearchBox(props) {
 
     const handleSearch = (e) => {
       //  console.log("we search");
-      //  console.log("here change",e.target.value);
+        console.log("here change",e.target.value);
         const searchString  = e.target.value;
         if(searchString === "") {
             props.handleUsersRender(props.users);
         //    console.log("Ent",props.users)
             return
         }
+        console.log(props)
         const filterdData = props.usersRenderData.filter((item) => {
-             return item.name.startsWith(searchString)
+             return item.name.toLowerCase().startsWith(searchString)
         })
         //console.log(filterdData)
        props.handleUsersRender(filterdData)
